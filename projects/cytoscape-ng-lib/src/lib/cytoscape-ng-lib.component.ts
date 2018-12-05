@@ -52,15 +52,15 @@ export class CytoscapeNgLibComponent implements OnChanges {
         })
         .selector('edge')
             .css({
-            'label': 'data(label)',
+            'label': getLabel,
             'color': 'black',
             'curve-style': 'bezier',
             'opacity': 0.666,
-            'width': 'mapData(strength, 70, 100, 2, 6)',
+            'width': 1,
             'target-arrow-shape': 'triangle',
-            'line-color': 'data(color)',
-            'source-arrow-color': 'data(color)',
-            'target-arrow-color': 'data(color)'
+            'line-color': getColor,
+            'source-arrow-color': getColor,
+            'target-arrow-color': getColor
         })
         .selector('node[icon]')
             .css({
@@ -89,6 +89,9 @@ export class CytoscapeNgLibComponent implements OnChanges {
         }
         function getHeight (ele) {
             return ele.data("height") || "50";
+        }
+        function getLabel (ele) {
+            return ele.data("label") || "";
         }
     }
 
