@@ -1,6 +1,21 @@
 {
   "name": "cytoscape-ng",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "desciption": "Cytoscape JS Wrapper for Angular",
+  "author": "Romain Leborgne",
+  "repository":{
+    "type": "git",
+    "url": "https://github.com/leborgneromain/cytoscape-ng.git"
+  },
+  "bugs":{
+    "url": "https://github.com/leborgneromain/cytoscape-ng/issues"
+  },
+  "homepage": "https://github.com/leborgneromain/cytoscape-ng",
+  "keywords": [
+    "cytoscape",
+    "angular"
+  ],
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
