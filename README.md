@@ -14,8 +14,9 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `npm install` to import dependencies
-Run `npm run package` to build and package the external library project. I produces a file 'cytoscape-ng-lib-<<version>>.tgz' that you can install to your project via npm with the command : npm install <<path_of_the_generated_tgz_file>>/cytoscape-ng-lib.tgz 
+Run `npm install` to import dependencies  <br />
+Run `npm run package` to build and package the external library project.  <br />
+It produces a file 'cytoscape-ng-lib-<<version>>.tgz' that you can install to your project via npm with the command : npm install <<path_of_the_generated_tgz_file>>/cytoscape-ng-lib.tgz 
 
 ## Example Usage
 

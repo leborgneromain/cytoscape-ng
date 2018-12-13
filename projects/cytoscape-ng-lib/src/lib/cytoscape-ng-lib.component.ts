@@ -1,5 +1,4 @@
 import { Component, OnChanges, ElementRef, Input } from '@angular/core';
-declare var jQuery: any;
 declare var cytoscape: any;
 
 @Component({
@@ -15,11 +14,11 @@ declare var cytoscape: any;
 })
 export class CytoscapeNgLibComponent implements OnChanges {
 
-    private _elements: any;
-    private _style: any;
-    private _layout: any;
-    private _zoom: any;
-    private _cy: any;
+    private _elements: any
+    private _style: any
+    private _layout: any
+    private _zoom: any
+    private _cy: any
 
     public constructor(private _el: ElementRef) {
 
@@ -35,63 +34,66 @@ export class CytoscapeNgLibComponent implements OnChanges {
         };
 
         this._style = this._style || cytoscape.stylesheet()
-        .selector('node')
-        .css({
-            'content': 'data(name)',
-            'shape': getShape,
-            'height': getHeight,
-            'width': getWidth,
-            'text-valign': 'bottom',
-            'background-color': getColor,
-            'color': 'black'
-        })
-        .selector(':selected')
-        .css({
-            'border-width': 3,
-            'border-color': '#333333'
-        })
-        .selector('edge')
+            .selector('node')
             .css({
-            'label': getLabel,
-            'color': 'black',
-            'curve-style': 'bezier',
-            'opacity': 0.666,
-            'width': 1,
-            'target-arrow-shape': 'triangle',
-            'line-color': getColor,
-            'source-arrow-color': getColor,
-            'target-arrow-color': getColor
-        })
-        .selector('node[icon]')
+                'content': 'data(name)',
+                'shape': getShape,
+                'height': getHeight,
+                'width': getWidth,
+                'text-valign': 'bottom',
+                'background-color': getColor,
+                'color': getColor,
+                'background-opacity': 0.05
+            })
+            .selector(':selected')
             .css({
-            'background-image': renderImage,
-            'background-opacity': 0,
-            'border-width': 0, 
-            'background-clip': 'none'
-        });
+                'background-color': "gray",
+                'border-color': "gray",
+                'border-width': 1.5,
+                'color': "gray",
+                'background-opacity': 0.4,
 
-        function renderImage (ele) {
-            var icon = ele.data("icon");
-            var color = ele.data("color");
-            var svg = `<svg xmlns="http://www.w3.org/2000/svg"  width="100" height="100" fill="${color}">
-                <text x="10" y="85" style=" font-size:85; font-family: FontAwesome">&#x${icon};</text>
+            })
+            .selector('edge')
+            .css({
+                'label': getLabel,
+                'color': '#E0E0E0',
+                'curve-style': 'bezier',
+                'opacity': 1,
+                'width': 3,
+                'target-arrow-shape': 'triangle',
+                'line-color': "#E0E0E0",
+                'source-arrow-color': "#E0E0E0",
+                'target-arrow-color': "#E0E0E0"
+            })
+            .selector('node[icon]')
+            .css({
+                'background-image': renderImage
+
+            });
+
+        function renderImage(ele) {
+            var icon = ele.data("icon")
+            var color = getColor(ele)
+            var svg = `<svg xmlns="http://www.w3.org/2000/svg"  width="80" height="80" fill="${color}">
+                <text dominant-baseline="middle" text-anchor="middle" x="50%" y="50" style="font-size:70; font-family: FontAwesome">&#x${icon};</text>
             </svg>`
             return 'data:image/svg+xml;base64,' + btoa(svg)
         }
-        function getShape (ele) {
-            return ele.data("shape") || "rectangle";
+        function getShape(ele) {
+            return ele.data("shape") || "ellipse"
         }
-        function getColor (ele) {
-            return ele.data("color") || "lightblue";
+        function getColor(ele) {
+            return ele.data("color") || "#337AB7"
         }
-        function getWidth (ele) {
-            return ele.data("width") || "50";
+        function getWidth(ele) {
+            return ele.data("width") || "100%"
         }
-        function getHeight (ele) {
-            return ele.data("height") || "50";
+        function getHeight(ele) {
+            return ele.data("height") || "100%"
         }
-        function getLabel (ele) {
-            return ele.data("label") || "";
+        function getLabel(ele) {
+            return ele.data("label") || ""
         }
     }
 
@@ -113,75 +115,75 @@ export class CytoscapeNgLibComponent implements OnChanges {
 
             // Have to stop existing layout instance.
             let oldlayout = this.cy.LayoutInstance;
-            if ( oldlayout) {
-                oldlayout.stop();
+            if (oldlayout) {
+                oldlayout.stop()
             }
-            
-            this.cy.nodes().remove();
-            let nodes = this.cy.add(this.elements);
-            this.cy.minZoom(this.zoom.min);
-            this.cy.maxZoom(this.zoom.max);
+
+            this.cy.nodes().remove()
+            let nodes = this.cy.add(this.elements)
+            this.cy.minZoom(this.zoom.min)
+            this.cy.maxZoom(this.zoom.max)
 
             // set the current graph elem collection layout to current instance value.
-            let layout = nodes.layout(this.layout);
+            let layout = nodes.layout(this.layout)
 
             // we need to rerun the layout again
-            layout.run();
+            layout.run()
         }
     }
 
 
     get elements(): any {
-        return this._elements;
+        return this._elements
     }
 
     @Input()
     set elements(value: any) {
-        this._elements = value;
+        this._elements = value
     }
 
     get style(): any {
-        return this._style;
+        return this._style
     }
 
     @Input()
     set style(value: any) {
-        this._style = value;
+        this._style = value
     }
 
     get layout(): any {
-        return this._layout;
+        return this._layout
     }
 
     @Input()
     set layout(value: any) {
-        this._layout = value;
+        this._layout = value
     }
 
     get zoom(): any {
-        return this._zoom;
+        return this._zoom
     }
 
     @Input()
     set zoom(value: any) {
-        this._zoom = value;
+        this._zoom = value
     }
 
     get cy(): any {
-        return this._cy;
+        return this._cy
     }
 
     @Input()
     set cy(value: any) {
-        this._cy = value;
+        this._cy = value
     }
 
     get el(): ElementRef {
-        return this._el;
+        return this._el
     }
 
     @Input()
     set el(value: ElementRef) {
-        this._el = value;
+        this._el = value
     }
 }
