@@ -1,16 +1,15 @@
-import { Component, OnChanges, ElementRef, Input } from '@angular/core';
+import { Component, OnChanges, ElementRef, Input, ViewEncapsulation } from '@angular/core';
 declare var cytoscape: any;
+declare var require: any;
+
+var cytoscape = require('cytoscape');
+var nodeHtmlLabel = require('cytoscape-node-html-label');
 
 @Component({
     selector: 'cytoscape-ng',
     template: '<div id="cy"></div>',
-    styles: [`#cy {
-        height: 100%;
-        width: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
-    }`]
+    styleUrls: ['./cytoscape-ng-lib.component.css', '../../node_modules/font-awesome/css/font-awesome.css'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class CytoscapeNgLibComponent implements OnChanges {
 
@@ -21,6 +20,8 @@ export class CytoscapeNgLibComponent implements OnChanges {
     private _cy: any
 
     public constructor(private _el: ElementRef) {
+
+        nodeHtmlLabel(cytoscape);
 
         this._layout = this._layout || {
             name: 'grid',
@@ -66,20 +67,7 @@ export class CytoscapeNgLibComponent implements OnChanges {
                 'source-arrow-color': "#E0E0E0",
                 'target-arrow-color': "#E0E0E0"
             })
-            .selector('node[icon]')
-            .css({
-                'background-image': renderImage
 
-            });
-
-        function renderImage(ele) {
-            var icon = ele.data("icon")
-            var color = getColor(ele)
-            var svg = `<svg xmlns="http://www.w3.org/2000/svg"  width="80" height="80" fill="${color}">
-                <text dominant-baseline="middle" text-anchor="middle" x="50%" y="50" style="font-size:70; font-family: FontAwesome">&#x${icon};</text>
-            </svg>`
-            return 'data:image/svg+xml;base64,' + btoa(svg)
-        }
         function getShape(ele) {
             return ele.data("shape") || "ellipse"
         }
@@ -111,6 +99,12 @@ export class CytoscapeNgLibComponent implements OnChanges {
                 style: this.style,
                 elements: this.elements,
             });
+            this.cy.nodeHtmlLabel([{
+                tpl: function (data) {
+                    if (data.icon) return '<i class="fa fa-3x" style="color:' + data.color + '">' + String.fromCharCode(data.icon) + '</i>'
+                    return null
+                }
+            }]);
         } else {
 
             // Have to stop existing layout instance.

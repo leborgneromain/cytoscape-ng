@@ -9,10 +9,10 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   private _graphData: any = {
     nodes: [
-      { data: { id: 'j', name: 'Jerry', color: '#6FB1FC', icon: 'f15b' } },
-      { data: { id: 'e', name: 'Elaine', color: '#EDA1ED', icon: 'f085' } },
-      { data: { id: 'k', name: 'Kramer', color: '#86B342', icon: 'f15b' } },
-      { data: { id: 'g', name: 'George', color: '#F5A45D' } }
+      { data: { id: 'j', name: 'Jerry', color: '#6FB1FC', icon: 0xf15b } },
+      { data: { id: 'e', name: 'Elaine', color: '#EDA1ED', icon: 0xf085 } },
+      { data: { id: 'k', name: 'Kramer', color: '#86B342', icon: 0xf15b } },
+      { data: { id: 'g', name: 'George', color: '#F5A45D', icon: 0xf1ec } }
     ],
     edges: [
       { data: { source: 'j', target: 'e', color: '#6FB1FC' } },
