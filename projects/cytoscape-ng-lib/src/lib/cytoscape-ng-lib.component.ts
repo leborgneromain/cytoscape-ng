@@ -1,14 +1,10 @@
 import { Component, OnChanges, ElementRef, Input, ViewEncapsulation } from '@angular/core';
 declare var cytoscape: any;
-declare var require: any;
-
-var cytoscape = require('cytoscape');
-var nodeHtmlLabel = require('cytoscape-node-html-label');
 
 @Component({
     selector: 'cytoscape-ng',
     template: '<div id="cy"></div>',
-    styleUrls: ['./cytoscape-ng-lib.component.css', '../../node_modules/font-awesome/css/font-awesome.css'],
+    styleUrls: ['./cytoscape-ng-lib.component.css'],
     encapsulation: ViewEncapsulation.None,
 })
 export class CytoscapeNgLibComponent implements OnChanges {
@@ -20,9 +16,6 @@ export class CytoscapeNgLibComponent implements OnChanges {
     private _cy: any
 
     public constructor(private _el: ElementRef) {
-
-        nodeHtmlLabel(cytoscape);
-
         this._layout = this._layout || {
             name: 'grid',
             directed: true,
@@ -98,13 +91,7 @@ export class CytoscapeNgLibComponent implements OnChanges {
                 maxZoom: this.zoom.max,
                 style: this.style,
                 elements: this.elements,
-            });
-            this.cy.nodeHtmlLabel([{
-                tpl: function (data) {
-                    if (data.icon) return '<i class="fa fa-3x" style="color:' + data.color + '">' + String.fromCharCode(data.icon) + '</i>'
-                    return null
-                }
-            }]);
+            })
         } else {
 
             // Have to stop existing layout instance.
